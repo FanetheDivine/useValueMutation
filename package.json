@@ -1,7 +1,7 @@
 {
   "name": "use-value-mutation",
   "version": "0.1.0",
-  "description": "高阶组件,使非受控组件在特定情形下受控",
+  "description": "用于处理外部value的突变",
   "scripts": {
     "example": "next dev -p 8888"
   },
