@@ -1,5 +1,6 @@
 # useValueMutation
-在开发中经常遇到这样的需求:受控组件要防抖地进行更新.useValueMutation可以解决这个问题,给出当前组件正确的value.  
+在开发中经常遇到这样的需求:受控组件要防抖地进行更新.  
+useValueMutation可以解决这个问题,它可以帮助受控组件管理value.  
 # 用法
 ```tsx
   const InputWithMutation:FC<{value:string,onChange:(newVal:string)=>void}> = props=>{
