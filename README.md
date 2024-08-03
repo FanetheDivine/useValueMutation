@@ -1,26 +1,24 @@
-推荐使用hook useMutation
-# withControlledPerformance
-高阶组件.使一个非受控组件可以表现的像受控组件一样.即在value突变时,组件会应用新的value.  
-相对于一般的实现,此组件的优点是可以规避在useEffect中执行setState,缺点是在突变的时候会失去焦点
+# useValueMutation
+在开发中经常遇到这样的需求:受控组件要防抖地进行更新.useValueMutation可以解决这个问题,给出当前组件正确的value.  
 # 用法
 ```tsx
-export const App = () => {
- const initText = 'init'
- const [text,setText] = useState(initText)
- return (
-   <button onClick={() => setText(initText)}>reset</button>
-   <SwitchableInput value={text} onChange={setText} />
- )
-}
-
-const SwitchableInput = withSwitchableControlledState(Input)
-
-const Input = (props: { defaultValue: string, onChange: (val: string) => void }) => {
- return <input defaultValue={props.defaultValue} onChange={e => props.onChange(e.target.value)} />
-}
+  const InputWithMutation:FC<{value:string,onChange:(newVal:string)=>void}> = props=>{
+    const [value,onChange] = useValueMutation(props.value,props.onChange)
+    return <input value={value} onChange={e => onChange(e.target.value)} />
+  }
+ 
+  const Comp:FC=()=>{
+   const [text,setText] = useState('')
+   return (
+     <>
+       <button onClick={()=>setText('reset')}>{text}</button>
+       <InputWithMutation value={text} onChange={debounce(setText,1000)}/>
+     </>
+   )
+  }
  ```
 # 源码
-`./withControlledPerformance/index.ts`
+`./useValueMutation/index.ts`
 # 示例
 `npm run example`  
 示例源码`./app/page.tsx`
